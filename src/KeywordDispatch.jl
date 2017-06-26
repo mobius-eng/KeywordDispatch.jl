@@ -7,7 +7,6 @@ export KeywordDispatchFunctionNotImplemented
 export add_specializer!, remove_specializer!
 export @defkwspec
 
-
 """
 Data structure for a function specializing on keywrod arguments.
 
@@ -19,7 +18,7 @@ keyword arguments and every entry of the form
 where `function` is a function to be called for current specialization and
 `dict` provides further specializations on lower priority keyword arguments
 """
-type KeywordDispatchFunction
+struct KeywordDispatchFunction
 	specializers :: Dict
 	KeywordDispatchFunction() = new(Dict())
 end
@@ -36,12 +35,12 @@ end
 """
 General error
 """
-abstract KeywordDispatchError <: Exception
+abstract type KeywordDispatchError <: Exception end
 
 """
 Error to be thrown if specializers are not found
 """
-type KeywordDispathFunctionNotFound <: KeywordDispatchError
+struct KeywordDispathFunctionNotFound <: KeywordDispatchError
     kwdfunction :: KeywordDispatchFunction
     keywords :: Vector{Symbol}
 end
@@ -55,7 +54,7 @@ end
 Error to be thrown if the function is requested with
 incomplete list of specializers
 """
-type KeywordDispatchFunctionNotImplemented <: KeywordDispatchError
+struct KeywordDispatchFunctionNotImplemented <: KeywordDispatchError
     kwdfunction :: KeywordDispatchFunction
     keywords :: Vector{Symbol}
 end
